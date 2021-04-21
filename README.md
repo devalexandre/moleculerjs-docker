@@ -19,11 +19,6 @@ docker push alephp/moleculerjs
 
 ```
 
-Add command in package.json
-
-``` 
-    "start:dev": "moleculer-runner --hot",
-```
 For production environments...
 
 ```yml
