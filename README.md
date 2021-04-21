@@ -1,7 +1,7 @@
 # Moleculerjs
 ## _Moleculerjs Image_
 
-[![Build Status](https://travis-ci.com/devalexandre/microservice-nano.svg?branch=master)](https://travis-ci.com/devalexandre/microservice-nano)
+[![Build Status](https://travis-ci.com/devalexandre/moleculerjs-docker.svg?branch=master)](https://travis-ci.com/devalexandre/moleculerjs-docker)
 
 This image aims to facilitate the development of microservices.
 Facilitating the deployment and its developments
