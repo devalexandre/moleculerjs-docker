@@ -21,5 +21,4 @@ RUN touch /home/node/app/start.sh
 RUN chmod +x /home/node/app/start.sh
 RUN echo -e " \n #!/bin/bash \n if [ $NODE_ENV = production ] \n then \n npm start \n else \n npx moleculer-runner --repl --hot   \n fi" > /home/node/app/start.sh
 
-RUN cat /home/node/app/start.sh
 CMD /home/node/app/start.sh
