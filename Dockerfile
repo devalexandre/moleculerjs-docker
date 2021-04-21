@@ -1,15 +1,25 @@
 FROM node:lts-alpine
 
-RUN mkdir /app
-WORKDIR /app
+RUN mkdir -p /home/node/app/node_modules
 
-RUN apk add --no-cache git
+WORKDIR /home/node/app
 
 COPY package.json package-lock.json ./
 
+RUN apk add --no-cache git
+
+COPY . /home/node/app/
+ENV NODE_ENV ='production'
+RUN chown -R node:node /home/node
+
 RUN npm ci --silent
-ENV RUNNING_MODE = if[$NODE_ENV=="production"];"start";"start:dev";fi
 
-COPY . .
+USER node
 
-CMD ["npm ","$RUNNING_MODE"]
+EXPOSE 3000
+RUN touch /home/node/app/start.sh
+RUN chmod +x /home/node/app/start.sh
+RUN echo -e " \n #!/bin/bash \n if [ $NODE_ENV = production ] \n then \n npm start \n else \n npx moleculer-runner --repl --hot   \n fi" > /home/node/app/start.sh
+
+RUN cat /home/node/app/start.sh
+CMD /home/node/app/start.sh
