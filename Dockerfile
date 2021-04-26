@@ -1,25 +1,16 @@
 FROM node:lts-alpine
 
-RUN mkdir -p /home/node/app/node_modules
-
+RUN mkdir -p /home/node/app
+# Working directory
 WORKDIR /home/node/app
 
-COPY package.json package-lock.json ./
+RUN apk add --no-cache git curl
 
-RUN apk add --no-cache git
+# Copy source
+COPY ./docker-entrypoint.sh /opt/docker-entrypoint.sh
+RUN chmod +x /opt/docker-entrypoint.sh
 
-COPY . /home/node/app/
+# Start server
 
-RUN chown -R node:node /home/node
-
-RUN npm ci --silent
-
-USER node
-
-RUN touch /home/node/app/start.sh
-RUN chmod +x /home/node/app/start.sh
-RUN echo -e " \n #!/bin/bash \n if [ $NODE_ENV = 'production' ] \n then \n echo 'production' ; \n npm start \n else \n echo 'develop' ; \n npx moleculer-runner --repl --hot   \n fi" > /home/node/app/start.sh
-
-RUN cat /home/node/app/start.sh
-CMD /home/node/app/start.sh
+CMD ["sh", "/opt/docker-entrypoint.sh"]
 
