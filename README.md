@@ -28,6 +28,9 @@ services:
   gateway:
     image: alephp/moleculerjs
     container_name: api
+    env_file: docker-compose.env
+    volumes:
+      - ./:/home/node/app
     environment:
       SERVICE: api
       NODE_ENV: develop
