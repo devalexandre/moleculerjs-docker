@@ -26,7 +26,7 @@ version: "3.3"
 
 services:
   gateway:
-    image: alephp/moleculerjs
+    image: alephp/moleculerjs:latest
     container_name: api
     env_file: docker-compose.env
     volumes:
